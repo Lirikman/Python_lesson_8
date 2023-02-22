@@ -2,10 +2,10 @@
 
 def text_operations(function):
     def wrapper(*args, **kwargs):
-        print('Текст в верхнем регистре - ', str(args).upper().lstrip('(').rstrip(')'))
-        print('Текст в нижнем регистре - ', str(args).lower().lstrip('(').rstrip(')'))
+        print('Текст в верхнем регистре -', str(args).upper().lstrip('(').rstrip(')'))
+        print('Текст в нижнем регистре -', str(args).lower().lstrip('(').rstrip(')'))
         function(*args, **kwargs)
-        print('Текст с обратным порядком слов - ', str(args[::-1]).lstrip('(').rstrip(')'))
+        print('Текст с обратным порядком элементов -', str(args[::-1]).lstrip('(').rstrip(')'))
 
     return wrapper
 
@@ -17,9 +17,9 @@ def show_text(a, b):
 
 show_text('ПрИвеТ, КаК ДелА?', 'СпАсиБо, у МеНя ВСЁ отлично!')
 
+# 3. Написать декоратор, замеряющий время выполнение декорируемой функции
 import time
 
-# 3. Написать декоратор, замеряющий время выполнение декорируемой функции
 
 def show_time(function):
     def wrapper(*args, **kwargs):
@@ -32,18 +32,52 @@ def show_time(function):
 
 
 @show_time
-def summ(x, y):
-    print(x + y)
+def operations_num(x, y):
+    print('Сумма чисел равна:', x + y)
+    print('Разность чисел равна:', x - y)
+    print('Произведение чисел равно:', x * y)
+    print('Частное от деления чисел равно:', x / y)
+
+operations_num(10, 20)
 
 
-summ(10, 20)
+@show_time
+def conc_word(a, b, c='Python'):
+    list_word = ''
+    list_word += str(a)
+    list_word += str(b)
+    list_word += str(c)
+    print('Конкатенация слов -', list_word)
 
 
-def list_sorted(*args):
-    temp_list = [args]
-    sorted(temp_list)
-    return temp_list
+conc_word('I', 'love')
 
 
-list_random = 'Ivan', 'Moscow', 'Sony_Playstation', 'My_name'
-print(list_sorted(list_random))
+# 4. Сравнить время создания генератора и списка с элементами: натуральные числа от 1 до 1000000
+# (создание объектов оформить в виде функций)
+
+def list_num():
+    number = [i for i in range(1, 1000000)]
+    print('Создание списка с числами от 1 до 1000000')
+    return number
+
+start_list = time.time()
+list_num()
+list_time = time.time()-start_list
+print('Время создания списка с числами от 1 до 1000000 -', list_time)
+def gen_num():
+    number = (i for i in range(1, 1000000))
+    print('Создание генератора чисел от 1 до 1000000')
+    return number
+
+start_gen = time.time()
+gen_num()
+gen_time = time.time()-start_gen
+print('Время создания генератора чисел от 1 до 1000000 -', gen_time)
+
+if list_time > gen_time:
+    print('Генератор чисел создался быстрее списка чисел на ', str(list_time-gen_time), 'сек.')
+elif list_time < gen_time:
+    print('Список чисел создался быстрее генератора на ', str(gen_time - list_time), 'сек.')
+else:
+    print('Список чисел и генератор чисел создались за одно и то же время!')
