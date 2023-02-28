@@ -55,29 +55,33 @@ conc_word('I', 'love')
 
 # 4. Сравнить время создания генератора и списка с элементами: натуральные числа от 1 до 1000000
 # (создание объектов оформить в виде функций)
-
+@show_time
 def list_num():
     number = [i for i in range(1, 1000000)]
     print('Создание списка с числами от 1 до 1000000')
     return number
 
-start_list = time.time()
 list_num()
-list_time = time.time()-start_list
-print('Время создания списка с числами от 1 до 1000000 -', list_time)
+#start_list = time.time()
+#list_num()
+#list_time = time.time()-start_list
+#print('Время создания списка с числами от 1 до 1000000 -', list_time)
+@show_time
 def gen_num():
     number = (i for i in range(1, 1000000))
     print('Создание генератора чисел от 1 до 1000000')
     return number
 
-start_gen = time.time()
 gen_num()
-gen_time = time.time()-start_gen
-print('Время создания генератора чисел от 1 до 1000000 -', gen_time)
 
-if list_time > gen_time:
-    print('Генератор чисел создался быстрее списка чисел на ', str(list_time-gen_time), 'сек.')
-elif list_time < gen_time:
-    print('Список чисел создался быстрее генератора на ', str(gen_time - list_time), 'сек.')
-else:
-    print('Список чисел и генератор чисел создались за одно и то же время!')
+#start_gen = time.time()
+#gen_num()
+#gen_time = time.time()-start_gen
+#print('Время создания генератора чисел от 1 до 1000000 -', gen_time)
+
+#if list_time > gen_time:
+#    print('Генератор чисел создался быстрее списка чисел на ', str(list_time-gen_time), 'сек.')
+#elif list_time < gen_time:
+#    print('Список чисел создался быстрее генератора на ', str(gen_time - list_time), 'сек.')
+#else:
+#    print('Список чисел и генератор чисел создались за одно и то же время!')
